@@ -1,5 +1,6 @@
 package com.example.aplicativodecursos.view;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.example.aplicativodecursos.model.Curso;
 import com.example.aplicativodecursos.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
+
+    SharedPreferences preferences;
     String dadosPessoa;
     String dadosOutrapessoa;
 
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLimpar;
     Button btnSalvar;
     Button btnFinalizar;
-
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        preferences = getSharedPreferences(SHARED_PREFS, 0);
+        SharedPreferences.Editor listaVip = preferences.edit();
 
         Pessoa pessoa = new Pessoa();
         Curso curso = new Curso();
@@ -96,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
                 PessoaController pessoaController = new PessoaController();
                 CursoController cursoController = new CursoController();
+
+                listaVip.putString("Dados Pessoa: ", pessoa.toString());
+                listaVip.putString("Dados Curso: ", curso.toString());
+                listaVip.apply();
 
                 pessoaController.salvar(pessoa);
                 cursoController.salvar(curso);

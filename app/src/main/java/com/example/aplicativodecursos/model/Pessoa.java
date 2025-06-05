@@ -11,6 +11,12 @@ public class Pessoa {
     public Pessoa() {
     }
 
+    public Pessoa(String primeiroNome, String sobrenome, String telefoneContato) {
+        this.primeiroNome = primeiroNome;
+        this.sobrenome = sobrenome;
+        this.telefoneContato = telefoneContato;
+    }
+
 
     //criar os get and sets
 

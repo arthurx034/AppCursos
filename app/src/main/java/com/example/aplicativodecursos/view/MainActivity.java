@@ -2,7 +2,6 @@ package com.example.aplicativodecursos.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.aplicativodecursos.R;
-import com.example.aplicativodecursos.controller.CursoController;
 import com.example.aplicativodecursos.controller.PessoaController;
 import com.example.aplicativodecursos.model.Curso;
 import com.example.aplicativodecursos.model.Pessoa;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLimpar;
     Button btnSalvar;
     Button btnFinalizar;
-    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String SHARED_PREFS = "dados_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(SHARED_PREFS, 0);
         SharedPreferences.Editor listaVip = preferences.edit();
 
+        PessoaController pessoaController = new PessoaController(this);
+
         Pessoa pessoa = new Pessoa();
         Curso curso = new Curso();
 
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
-        editSobrenome.setText(curso.getCurso());
-        editCursoDesejado.setText(curso.getCurso());
+        editSobrenome.setText(curso.getCursoDesejado());
+        editCursoDesejado.setText(curso.getCursoDesejado());
         editTelefoneContato.setText(pessoa.getTelefoneContato());
 
         //criando os eventos/metodos
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 editSobrenome.getText().clear();
                 editCursoDesejado.getText().clear();
                 editTelefoneContato.getText().clear();
+                limparDados();
             }
         });
 
@@ -93,26 +94,35 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
                 pessoa.setSobrenome(editSobrenome.getText().toString());
-                curso.setCurso(editCursoDesejado.getText().toString());
+                curso.setCursoDesejado(editCursoDesejado.getText().toString());
                 pessoa.setTelefoneContato(editTelefoneContato.getText().toString());
 
 
                 Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(MainActivity.this, curso.toString(), Toast.LENGTH_LONG).show();
 
-                PessoaController pessoaController = new PessoaController();
-                CursoController cursoController = new CursoController();
-
-                listaVip.putString("Dados Pessoa: ", pessoa.toString());
-                listaVip.putString("Dados Curso: ", curso.toString());
-                listaVip.apply();
-
-                pessoaController.salvar(pessoa);
-                cursoController.salvar(curso);
+                pessoaController.salvarPessoa(pessoa, curso);
             }
         });
 
+        carregarDados();
     }
 
+    public void carregarDados() {
+        Pessoa pessoa = PessoaController.carregarPessoa();
+        Curso curso = PessoaController.carregarCurso();
+
+
+        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+        editSobrenome.setText(pessoa.getSobrenome());
+        editCursoDesejado.setText(curso.getCursoDesejado());
+        editTelefoneContato.setText(pessoa.getTelefoneContato());
+    }
+
+    public void limparDados() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 
 }

@@ -50,7 +50,9 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa Salva: " + primeiroNome + sobrenome + "\n" +
-                "Telefone de Contato: " + telefoneContato;
+        if (!primeiroNome.isEmpty() && !sobrenome.isEmpty() && !telefoneContato.isEmpty()) {
+            return "Pessoa Salva: " + primeiroNome + " " + sobrenome + " " + telefoneContato;
+        }
+        return "Digite os dados corretamente";
     }
 }

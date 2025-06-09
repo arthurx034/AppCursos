@@ -14,24 +14,22 @@ public class PessoaController {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
     }
 
-    public void salvarPessoa(Pessoa pessoa, Curso curso) {
+    public void salvarPessoa(Pessoa pessoa) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("nome", pessoa.getPrimeiroNome());
+        editor.putString("primeiroNome", pessoa.getPrimeiroNome());
         editor.putString("sobrenome", pessoa.getSobrenome());
-        editor.putString("telefone", pessoa.getTelefoneContato());
-        editor.putString("curso", curso.getCursoDesejado());
+        editor.putString("telefoneContato", pessoa.getTelefoneContato());
         editor.apply();
     }
 
     public static Pessoa carregarPessoa() {
-        String primeiroNome = sharedPreferences.getString("nome", "NA");
-        String sobrenome = sharedPreferences.getString("sobrenome", "NA");
-        String telefoneContato = sharedPreferences.getString("telefone", "NA");
+        String primeiroNome = sharedPreferences.getString("primeiroNome", "");
+        String sobrenome = sharedPreferences.getString("sobrenome", "");
+        String telefoneContato = sharedPreferences.getString("telefoneContato", "");
         return new Pessoa(primeiroNome, sobrenome, telefoneContato);
     }
 
-    public static Curso carregarCurso() {
-        String cursoDesejado = sharedPreferences.getString("curso", "NA");
-        return new Curso(cursoDesejado);
+    public void limparDados() {
+        sharedPreferences.edit().clear().apply();
     }
 }

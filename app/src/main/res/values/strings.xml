@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">AplicativoDeCursos</string>
+    <string-array name="cursos_array">
+        <item>Selecione</item>
+        <item>Tecnico em Desenvolvimento de Sistemas</item>
+        <item>Tecnico em Informatica</item>
+        <item>Tecnico em Logistica</item>
+        <item>Tecnico em Mecanica</item>
+        <item>Tecnico em Mecatronica</item>
+        <item>Tecnico em Mecanica Industrial</item>
+        <item>Tecnico em Estetica</item>
+        <item>Tecnico em Gastronomia</item>
+    </string-array>
 </resources>

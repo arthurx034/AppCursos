@@ -3,9 +3,6 @@ package com.example.aplicativodecursos.model;
 public class Curso {
     private String cursoDesejado;
 
-    public Curso() {
-    }
-
     public Curso(String cursoDesejado) {
         this.cursoDesejado = cursoDesejado;
     }

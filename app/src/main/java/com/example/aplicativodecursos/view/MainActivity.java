@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         spinCursoDesejado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCourse = parent.getItemAtPosition(position).toString();
+                if (selectedCourse.equals("Selecione")) {
+                    return;
+                }
                 Toast.makeText(MainActivity.this, "Selecionado: " + selectedCourse, Toast.LENGTH_SHORT).show();
             }
 
@@ -108,14 +111,23 @@ public class MainActivity extends AppCompatActivity {
                     editSobrenome.getText().toString(),
                     editTelefoneContato.getText().toString()
             );
-            curso = new Curso(
-                    cursoDesejado
-            );
-            pessoaController.salvarPessoa(pessoa);
-            cursoController.salvarCurso(curso);
+            curso = new Curso(cursoDesejado);
+            if (!pessoa.equals("")) {
+                pessoaController.salvarPessoa(pessoa);
+            }
+            if (!cursoDesejado.equals("Selecione")) {
+                cursoController.salvarCurso(curso);
+            }
 
-            Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
-            Toast.makeText(MainActivity.this, curso.toString(), Toast.LENGTH_LONG).show();
+            if (!pessoa.equals("")) {
+                Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
+            }
+            if (cursoDesejado.equals("Selecione")) {
+                Toast.makeText(MainActivity.this, "Selecione um curso", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Toast.makeText(MainActivity.this, curso.toString(), Toast.LENGTH_LONG).show();
+            }
         });
 
         // Carrega dados ao iniciar
@@ -123,18 +135,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregarDados() {
-        Pessoa pessoa = PessoaController.carregarPessoa();
-        Curso curso = CursoController.carregarCurso();
+        if (pessoaController.carregarPessoa() != null) {
+            Pessoa pessoa = PessoaController.carregarPessoa();
+            Curso curso = CursoController.carregarCurso();
 
-        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
-        editSobrenome.setText(pessoa.getSobrenome());
-        editTelefoneContato.setText(pessoa.getTelefoneContato());
+            editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+            editSobrenome.setText(pessoa.getSobrenome());
+            editTelefoneContato.setText(pessoa.getTelefoneContato());
 
-        String cursoSalvo = curso.getCursoDesejado();
-        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinCursoDesejado.getAdapter();
-        int position = adapter.getPosition(cursoSalvo);
-        if (position >= 0) {
-            spinCursoDesejado.setSelection(position);
+            String cursoSalvo = curso.getCursoDesejado();
+            ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinCursoDesejado.getAdapter();
+            int position = adapter.getPosition(cursoSalvo);
+            if (position >= 0) {
+                spinCursoDesejado.setSelection(position);
+            }
         }
     }
 }

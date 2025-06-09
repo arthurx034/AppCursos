@@ -16,10 +16,12 @@ public class PessoaController {
 
     public void salvarPessoa(Pessoa pessoa) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("primeiroNome", pessoa.getPrimeiroNome());
-        editor.putString("sobrenome", pessoa.getSobrenome());
-        editor.putString("telefoneContato", pessoa.getTelefoneContato());
-        editor.apply();
+        if (!pessoa.getPrimeiroNome().isEmpty() && !pessoa.getSobrenome().isEmpty() && !pessoa.getTelefoneContato().isEmpty()) {
+            editor.putString("primeiroNome", pessoa.getPrimeiroNome());
+            editor.putString("sobrenome", pessoa.getSobrenome());
+            editor.putString("telefoneContato", pessoa.getTelefoneContato());
+            editor.apply();
+        }
     }
 
     public static Pessoa carregarPessoa() {

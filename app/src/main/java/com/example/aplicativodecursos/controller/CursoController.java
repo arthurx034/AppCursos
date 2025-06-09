@@ -2,6 +2,7 @@ package com.example.aplicativodecursos.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.example.aplicativodecursos.model.Curso;
 
 public class CursoController {
@@ -14,8 +15,10 @@ public class CursoController {
 
     public void salvarCurso(Curso curso) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("cursoDesejado", curso.getCursoDesejado());
-        editor.apply();
+        if (!curso.getCursoDesejado().isEmpty()) {
+            editor.putString("cursoDesejado", curso.getCursoDesejado());
+            editor.apply();
+        }
     }
 
     public static Curso carregarCurso() {

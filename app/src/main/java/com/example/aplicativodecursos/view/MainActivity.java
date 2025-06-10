@@ -106,27 +106,30 @@ public class MainActivity extends AppCompatActivity {
         // Botão Salvar
         btnSalvar.setOnClickListener(view -> {
             String cursoDesejado = spinCursoDesejado.getSelectedItem().toString();
-            Pessoa pessoa = new Pessoa(
-                    editPrimeiroNome.getText().toString(),
-                    editSobrenome.getText().toString(),
-                    editTelefoneContato.getText().toString()
-            );
-            curso = new Curso(cursoDesejado);
-            if (!pessoa.equals("")) {
-                pessoaController.salvarPessoa(pessoa);
-            }
-            if (!cursoDesejado.equals("Selecione")) {
-                cursoController.salvarCurso(curso);
-            }
 
-            if (!pessoa.equals("")) {
+            String primeiroNome = editPrimeiroNome.getText().toString().trim();
+            String sobrenome = editSobrenome.getText().toString().trim();
+            String telefoneContato = editTelefoneContato.getText().toString().trim();
+
+            Pessoa pessoa = new Pessoa(primeiroNome, sobrenome, telefoneContato);
+            Curso curso = new Curso(cursoDesejado);
+
+            boolean dadosPessoaValidos = !primeiroNome.isEmpty() && !sobrenome.isEmpty() && !telefoneContato.isEmpty();
+            boolean cursoValido = !cursoDesejado.equals("Selecione");
+
+            if (dadosPessoaValidos && cursoValido) {
+                pessoaController.salvarPessoa(pessoa);
+                cursoController.salvarCurso(curso);
+
                 Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
-            }
-            if (cursoDesejado.equals("Selecione")) {
-                Toast.makeText(MainActivity.this, "Selecione um curso", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
                 Toast.makeText(MainActivity.this, curso.toString(), Toast.LENGTH_LONG).show();
+            } else {
+                if (!cursoValido) {
+                    Toast.makeText(MainActivity.this, "Selecione um curso", Toast.LENGTH_SHORT).show();
+                }
+                if (!dadosPessoaValidos) {
+                    Toast.makeText(MainActivity.this, "Digite os dados corretamente", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregarDados() {
-        if (pessoaController.carregarPessoa() != null) {
+        if (pessoaController.carregarPessoa() != null && cursoController.carregarCurso() != null) {
             Pessoa pessoa = PessoaController.carregarPessoa();
             Curso curso = CursoController.carregarCurso();
 

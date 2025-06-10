@@ -1,6 +1,6 @@
-package com.example.aplicativodecursos.model;
+package com.arthur.aplicativodecursos.model;
 
-import com.example.aplicativodecursos.controller.PessoaController;
+import com.arthur.aplicativodecursos.controller.PessoaController;
 
 public class Curso {
     private String cursoDesejado;

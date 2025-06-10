@@ -1,4 +1,4 @@
-package com.example.aplicativodecursos.model;
+package com.arthur.aplicativodecursos.model;
 
 public class Pessoa {
 

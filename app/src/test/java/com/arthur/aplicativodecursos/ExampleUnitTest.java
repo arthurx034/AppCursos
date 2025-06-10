@@ -1,4 +1,4 @@
-package com.example.aplicativodecursos;
+package com.arthur.aplicativodecursos;
 
 import org.junit.Test;
 

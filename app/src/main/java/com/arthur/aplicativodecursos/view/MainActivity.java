@@ -1,6 +1,5 @@
-package com.example.aplicativodecursos.view;
+package com.arthur.aplicativodecursos.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,11 +15,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.arthur.aplicativodecursos.DB.CriaBanco;
+import com.arthur.aplicativodecursos.controller.BancoController;
+import com.arthur.aplicativodecursos.controller.CursoController;
+import com.arthur.aplicativodecursos.controller.PessoaController;
+import com.arthur.aplicativodecursos.model.Curso;
+import com.arthur.aplicativodecursos.model.Pessoa;
 import com.example.aplicativodecursos.R;
-import com.example.aplicativodecursos.controller.CursoController;
-import com.example.aplicativodecursos.controller.PessoaController;
-import com.example.aplicativodecursos.model.Curso;
-import com.example.aplicativodecursos.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     Curso curso;
     PessoaController pessoaController;
     CursoController cursoController;
+
+    CriaBanco banco = new CriaBanco(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Botão Salvar
         btnSalvar.setOnClickListener(view -> {
+            BancoController bancoController = new BancoController(this);
+            String resultado;
+
             String cursoDesejado = spinCursoDesejado.getSelectedItem().toString();
 
             String primeiroNome = editPrimeiroNome.getText().toString().trim();
@@ -120,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
             if (dadosPessoaValidos && cursoValido) {
                 pessoaController.salvarPessoa(pessoa);
                 cursoController.salvarCurso(curso);
+
+                resultado = bancoController.insereDado(primeiroNome, sobrenome, telefoneContato, cursoDesejado);
+                Toast.makeText(this, resultado, Toast.LENGTH_LONG).show();
 
                 Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(MainActivity.this, curso.toString(), Toast.LENGTH_LONG).show();

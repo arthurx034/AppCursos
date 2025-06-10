@@ -1,9 +1,9 @@
-package com.example.aplicativodecursos.controller;
+package com.arthur.aplicativodecursos.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.aplicativodecursos.model.Curso;
+import com.arthur.aplicativodecursos.model.Curso;
 
 public class CursoController {
     private static final String SHARED_PREFS = "dados_prefs";

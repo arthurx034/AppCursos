@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by allanromanato on 5/27/15.
- */
 public class CriaBanco extends SQLiteOpenHelper {
     private static final String NOME_BANCO = "banco.db";
     public static final String TABELA = "dadosUsuario";

@@ -15,23 +15,19 @@ public class BancoController {
     }
 
     public String insereDado(String primeiroNome, String sobrenome, String telefoneContato, String cursoDesejado) {
-        ContentValues valores;
-        long resultado;
-
-        db = banco.getWritableDatabase();
-        valores = new ContentValues();
+        ContentValues valores = new ContentValues();
         valores.put(CriaBanco.primeiroNome, primeiroNome);
         valores.put(CriaBanco.sobrenome, sobrenome);
         valores.put(CriaBanco.telefoneContato, telefoneContato);
         valores.put(CriaBanco.cursoDesejado, cursoDesejado);
 
-        resultado = db.insert(CriaBanco.TABELA, null, valores);
-        db.close();
+        try {
+            db = banco.getWritableDatabase();
+            long resultado = db.insert(CriaBanco.TABELA, null, valores);
 
-        if (resultado == -1)
-            return "Erro ao inserir registro";
-        else
-            return "Registro Inserido com sucesso";
-
+            return (resultado == -1) ? "Erro ao inserir registro" : "Registro inserido com sucesso";
+        } catch (Exception e) {
+            return "Erro ao inserir: " + e.getMessage();
+        }
     }
 }

@@ -25,10 +25,10 @@ public class CriaBanco extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + TABELA + "("
                 + ID + " integer primary key autoincrement,"
-                + primeiroNome + " primeiroNome,"
-                + sobrenome + " sobrenome,"
-                + telefoneContato + " telefoneContato,"
-                + cursoDesejado + " cursoDesejado)";
+                + primeiroNome + " TEXT,"
+                + sobrenome + " TEXT,"
+                + telefoneContato + " TEXT,"
+                + cursoDesejado + " TEXT)";
         db.execSQL(sql);
     }
 

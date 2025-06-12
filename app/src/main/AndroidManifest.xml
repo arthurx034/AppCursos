@@ -12,8 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicativoDeCursos"
         tools:targetApi="31">
-        <activity android:exported="true"
-            android:name="com.arthur.aplicativodecursos.view.MainActivity">
+        <activity
+            android:name="com.arthur.aplicativodecursos.view.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.arthur.aplicativodecursos.view.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

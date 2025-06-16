@@ -14,7 +14,7 @@ import com.example.aplicativodecursos.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    public static final int SPLASH_TIME_OUT = 3000;
+    public static final int SPLASH_TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

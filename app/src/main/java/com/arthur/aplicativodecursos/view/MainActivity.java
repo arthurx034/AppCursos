@@ -16,12 +16,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.arthur.aplicativodecursos.DB.CriaBanco;
+import com.arthur.aplicativodecursos.R;
 import com.arthur.aplicativodecursos.controller.BancoController;
 import com.arthur.aplicativodecursos.controller.CursoController;
 import com.arthur.aplicativodecursos.controller.PessoaController;
 import com.arthur.aplicativodecursos.model.Curso;
 import com.arthur.aplicativodecursos.model.Pessoa;
-import com.example.aplicativodecursos.R;
 
 public class MainActivity extends AppCompatActivity {
 
